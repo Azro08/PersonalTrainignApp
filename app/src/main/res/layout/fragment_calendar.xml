@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue"
+    android:orientation="vertical"
+    tools:context=".presentation.calendar.CalendarFragment">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/button_previous_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:alpha=".54"
+            android:background="@color/dark_blue"
+            android:importantForAccessibility="no"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="2dp"
+            android:src="@drawable/left_arrow_icon" />
+
+        <TextView
+            android:id="@+id/text_view_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/dark_orange"
+            tools:text="TextView" />
+
+        <ImageButton
+            android:id="@+id/button_next_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:alpha=".54"
+            android:background="@color/dark_blue"
+            android:importantForAccessibility="no"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="2dp"
+            android:src="@drawable/right_arrow_icon" />
+    </LinearLayout>
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        android:id="@+id/compact_calendar_view"
+        android:layout_width="fill_parent"
+        android:layout_height="350dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:compactCalendarBackgroundColor="@color/dark_blue"
+        app:compactCalendarCurrentDayBackgroundColor="@color/dark_orange"
+        app:compactCalendarCurrentDayTextColor="@color/white"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/dark_orange"
+        app:compactCalendarCurrentSelectedDayTextColor="@android:color/white"
+        app:compactCalendarMultiEventIndicatorColor="@color/white"
+        app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
+        app:compactCalendarTargetHeight="350dp"
+        app:compactCalendarTextColor="@color/white"
+        app:compactCalendarTextSize="12sp" />
+
+
+</LinearLayout>

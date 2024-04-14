@@ -1,4 +1,4 @@
-package com.example.personaltrainignapp.presentation.exercises
+package com.example.personaltrainignapp.presentation.exercises.adapter
 
 import android.util.Log
 import android.view.LayoutInflater

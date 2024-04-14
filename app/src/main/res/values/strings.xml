@@ -18,4 +18,19 @@
     <string name="exercise">Exercise</string>
     <string name="measure">Measure</string>
     <string name="note">Note</string>
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
+    <string name="name">name</string>
+    <string name="equipment">equipment</string>
+    <string name="target_muscle">target muscle</string>
+    <string name="secondary_muscle">secondary muscle</string>
+    <string name="instructions">instructions</string>
+    <string name="edit">Edit</string>
+    <string name="old_password">old password</string>
+    <string name="new_password">new password</string>
+    <string name="save">Save</string>
+    <string name="old_password_is_required">Old password is required</string>
+    <string name="user_not_found">User not found</string>
+    <string name="profile_updated">Profile updated</string>
 </resources>

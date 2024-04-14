@@ -41,39 +41,39 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core-animation:1.0.0-rc01'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.9.1'
+    implementation libs.core.ktx
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.core.animation
+    implementation libs.swiperefreshlayout
+    implementation libs.firebase.firestore.ktx
     implementation libs.firebase.storage.ktx
     implementation libs.firebase.database.ktx
     implementation libs.androidx.legacy.support.v4
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.7.5'
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
 
     // Coroutine Lifecycle Scopes
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
+    implementation libs.lifecycle.runtime.ktx
+    implementation libs.lifecycle.viewmodel.ktx
 
     //dagger-hilt
-    implementation "com.google.dagger:hilt-android:2.48"
-    annotationProcessor 'com.google.dagger:hilt-compiler:2.48'
-    kapt "com.google.dagger:hilt-android-compiler:2.48"
-    kapt "androidx.hilt:hilt-compiler:1.1.0"
+    implementation libs.hilt.android
+    annotationProcessor libs.hilt.compiler
+    kapt libs.hilt.android.compiler
+    kapt libs.androidx.hilt.compiler
 
     // Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    implementation platform('com.google.firebase:firebase-bom:32.8.1')
     implementation 'com.google.firebase:firebase-auth'
 
     // TODO: Add the dependencies for Firebase products you want to use
@@ -81,25 +81,23 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.okhttp
 
     //gif
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
+    implementation libs.android.gif.drawable
 
     //circle image
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation libs.circleimageview
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation libs.glide
 
     // reflection-based flavor
-    implementation 'com.github.kirich1409:viewbindingpropertydelegate-full:1.5.9'
+    implementation libs.viewbindingpropertydelegate.full
 
     //Calendar view
-    implementation 'com.github.sundeepk:compact-calendar-view:2.0.2.3'
+    implementation libs.compact.calendar.view
 
-    //float button
-    implementation 'com.github.clans:fab:1.6.4'
 }
