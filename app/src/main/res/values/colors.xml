@@ -3,5 +3,18 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_blue">#212338</color>
+    <color name="dark_blue2">#2A2D44</color>
     <color name="dark_orange">#b53e28</color>
+    <color name="accent">#FF9800</color>
+
+
+    <!--Цвет тренировки-->
+    <color name="blue">#2196F3</color>
+
+    <!--Цвет измерения-->
+    <color name="orange">#FF9800</color>
+
+    <!--Цвет заметки-->
+    <color name="green">#4caf50</color>
+
 </resources>

@@ -6,20 +6,16 @@ import java.util.Locale
 import kotlin.random.Random
 
 object Constants {
+    const val BASE_URL = "https://exercisedb.p.rapidapi.com/exercises/"
+    const val API_KEY = "38d69bfad7mshe1ddb8dcfb829c8p1c872ejsn18acd4c5def8"
     const val SHARED_PREF_NAME = "user_pref"
     const val USER_KEY = "user_key"
     const val ROLE_KEY = "role_key"
     const val ADMIN = "admin"
     const val USER = "user"
-    const val PRODUCT_ID = "product_id"
-    const val ORDER_ID = "order_id"
     const val USER_ID = "user_id"
     const val EMAIL = "email"
     const val LANGUAGE_KEY = "language_key"
-    const val CHAT_NAME = "chat_name"
-    const val CHAT_UID = "chat_uid"
-    const val CHAT_IMAGE = "chat_image"
-
     fun generateRandomId(): String {
         val characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         val random =
@@ -42,6 +38,21 @@ object Constants {
     fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
+    }
+
+    fun getBodyPartsList(): List<String> {
+        return listOf(
+            "back",
+            "cardio",
+            "chest",
+            "lower arms",
+            "lower legs",
+            "neck",
+            "shoulders",
+            "upper arms",
+            "upper legs",
+            "waist"
+        )
     }
 
 }
