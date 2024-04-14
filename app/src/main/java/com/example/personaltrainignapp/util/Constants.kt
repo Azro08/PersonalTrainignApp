@@ -13,6 +13,7 @@ object Constants {
     const val ROLE_KEY = "role_key"
     const val ADMIN = "admin"
     const val USER = "user"
+    const val EXERCISE_KEY = "exercise_key"
     const val USER_ID = "user_id"
     const val EMAIL = "email"
     const val LANGUAGE_KEY = "language_key"

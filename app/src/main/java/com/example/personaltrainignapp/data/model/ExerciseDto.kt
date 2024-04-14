@@ -21,3 +21,7 @@ data class ExerciseDto(
     @SerializedName("target")
     val target: String
 )
+
+fun ExerciseDto.toExercise() = Exercise(
+    bodyPart, equipment, gifUrl, id, instructions, name, secondaryMuscles, target
+)
