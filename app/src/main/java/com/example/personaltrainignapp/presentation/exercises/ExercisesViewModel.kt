@@ -40,7 +40,6 @@ class ExercisesViewModel @Inject constructor(
                     exercise.name.contains(query, ignoreCase = true)
                 } ?: emptyList()
             }
-
             else -> emptyList()
         }
     }
