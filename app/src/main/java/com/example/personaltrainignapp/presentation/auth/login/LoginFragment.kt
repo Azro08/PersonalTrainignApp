@@ -44,32 +44,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val password = binding.editTextPassword.text.toString()
             viewModel.login(email, password)
             viewModel.loggedIn.collect { result ->
-                if (result == Constants.ADMIN || result == Constants.USER) {
+                if (result == "Done"){
                     authManager.saveUer(email)
-                    authManager.saveRole(result)
                     startActivity(Intent(requireActivity(), MainActivity::class.java))
                     requireActivity().finish()
                 } else {
-                    Toast.makeText(requireContext(), result ?: "Login failed", Toast.LENGTH_SHORT)
-                        .show()
-                    binding.buttonLogin.isClickable = true
+                    Toast.makeText(requireContext(), result ?: "Failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-//    private fun navToRoleActivity(role: String) {
-//        when(role){
-//            Constants.ADMIN -> {
-//                startActivity(Intent(requireActivity(), AdminActivity::class.java))
-//                requireActivity().finish()
-//            }
-//            Constants.USER ->{
-//                startActivity(Intent(requireActivity(), MainActivity::class.java))
-//                requireActivity().finish()
-//            }
-//        }
-//    }
 
     private fun allFieldsAreFilled(): Boolean {
         return !(binding.editTextEmail.text.toString()

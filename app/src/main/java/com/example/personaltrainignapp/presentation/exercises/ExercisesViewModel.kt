@@ -29,4 +29,20 @@ class ExercisesViewModel @Inject constructor(
         }
     }
 
+    fun refresh(bodyPart: String) {
+        getExercisesListByMuscle(bodyPart)
+    }
+
+    fun filterExercisesList(query: String): List<Exercise> {
+        return when (val currentState = _exercisesState.value) {
+            is ScreenState.Success -> {
+                currentState.data?.filter { exercise ->
+                    exercise.name.contains(query, ignoreCase = true)
+                } ?: emptyList()
+            }
+
+            else -> emptyList()
+        }
+    }
+
 }

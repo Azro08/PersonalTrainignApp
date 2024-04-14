@@ -18,11 +18,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding by viewBinding(ActivityMainBinding::bind)
-
     @Inject
     lateinit var authManager: AuthManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        supportActionBar?.hide()
         if (!authManager.isLoggedIn()) {
             startActivity(Intent(this, AuthActivity::class.java))
             finish()

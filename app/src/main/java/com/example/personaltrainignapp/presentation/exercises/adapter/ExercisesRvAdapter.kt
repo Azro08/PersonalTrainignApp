@@ -1,5 +1,6 @@
 package com.example.personaltrainignapp.presentation.exercises.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ import com.example.personaltrainignapp.data.model.Exercise
 import com.example.personaltrainignapp.databinding.ExerciseItemBinding
 
 class ExercisesRvAdapter(
-    private val exercisesList: List<Exercise>,
+    private var exercisesList: List<Exercise>,
     private val clickListener: (exercise: Exercise) -> Unit
 ) : RecyclerView.Adapter<ExercisesRvAdapter.ExerciseViewHolder>() {
 
@@ -47,6 +48,12 @@ class ExercisesRvAdapter(
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         holder.bind(exercisesList[position])
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateExercisesList(filteredList: List<Exercise>) {
+        exercisesList = filteredList.toMutableList()
+        notifyDataSetChanged()
     }
 
 }

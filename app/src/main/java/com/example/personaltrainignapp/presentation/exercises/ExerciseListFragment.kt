@@ -1,6 +1,9 @@
 package com.example.personaltrainignapp.presentation.exercises
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -27,10 +30,33 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
     private val viewModel: ExercisesViewModel by viewModels()
     private var bodyPartRvAdapter: BodyPartRvAdapter? = null
     private var exercisesRvAdapter: ExercisesRvAdapter? = null
-    private var currentBodyPart = ""
+    private var currentBodyPart = "back"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         getBodyParts()
         getExercises()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refresh(currentBodyPart)
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+        search()
+    }
+
+    private fun search() {
+        binding.editTextSearchExercise.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val searchText = s.toString().trim()
+                performSearch(searchText)
+            }
+        })
+    }
+
+    private fun performSearch(query: String) {
+        val filteredList = viewModel.filterExercisesList(query)
+        exercisesRvAdapter?.updateExercisesList(filteredList)
     }
 
     private fun getBodyParts() {
@@ -66,10 +92,12 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
     }
 
     private fun showExercises(exercises: List<Exercise>) {
+        Log.d("Exercises list", exercises.toString())
         binding.searchLayout.visibility = View.VISIBLE
         binding.rvBodyParts.visibility = View.VISIBLE
-        binding.rvExercises.visibility = View.VISIBLE
+        binding.swipeRefreshLayout.visibility = View.VISIBLE
         binding.textViewError.visibility = View.GONE
+        binding.loadingGif.visibility = View.GONE
         exercisesRvAdapter = ExercisesRvAdapter(exercises) {
             navToDetails(it)
         }
@@ -86,7 +114,8 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
     private fun handleError(message: String?) {
         binding.searchLayout.visibility = View.GONE
         binding.rvBodyParts.visibility = View.GONE
-        binding.rvExercises.visibility = View.GONE
+        binding.swipeRefreshLayout.visibility = View.VISIBLE
+        binding.loadingGif.visibility = View.GONE
         binding.textViewError.visibility = View.VISIBLE
         binding.textViewError.text = message ?: "Failed to load exercise!"
     }

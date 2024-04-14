@@ -84,8 +84,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="7dp"
-            android:visibility="gone"
-            android:background="@color/dark_blue2"
+            android:background="@color/dark_blue"
             android:id="@+id/rvExercises"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
