@@ -14,6 +14,7 @@ class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
     private val binding by viewBinding(ActivityAuthBinding::bind)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setViewPager()
     }
 

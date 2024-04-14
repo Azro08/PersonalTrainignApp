@@ -1,5 +1,6 @@
 package com.example.personaltrainignapp.data.repository
 
+import android.util.Log
 import com.example.personaltrainignapp.data.model.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -14,10 +15,10 @@ import kotlin.coroutines.suspendCoroutine
 
 class AuthRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore,
+    firestore: FirebaseFirestore,
 ) {
 
-
+    private val usersCollection = firestore.collection("users")
     suspend fun login(email: String, password: String): String {
         val deferred = CompletableDeferred<String>()
         try {
@@ -44,9 +45,11 @@ class AuthRepository @Inject constructor(
             val authResult =
                 firebaseAuth.createUserWithEmailAndPassword(user.email, password).await()
 
-            val uid = authResult.user?.uid ?: ""
-            if (uid.isNotEmpty()) {
-                val result = saveUser(user)
+            val uid = firebaseAuth.currentUser?.uid
+            Log.d("RegVm", uid.toString())
+            if (!uid.isNullOrEmpty()) {
+                val result = saveUser(user, uid)
+                Log.d("RegVm Rs", result)
                 if (result == "Done") {
                     "Done"
                 } else {
@@ -60,10 +63,18 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    private suspend fun saveUser(user: User): String = withContext(Dispatchers.IO) {
-        val usersCollection = FirebaseFirestore.getInstance().collection("users")
+    private suspend fun saveUser(user: User, id: String): String = withContext(Dispatchers.IO) {
+        Log.d("RegVm", user.toString())
+        val newUser = User(
+            id = id,
+            email = user.email,
+            phoneNumber = user.phoneNumber,
+            imageUrl = user.imageUrl,
+            fullName = user.fullName
+        )
         return@withContext try {
-            usersCollection.document(user.id).set(user).await()
+            val userRef = usersCollection.document(id)
+            userRef.set(newUser).await()
             "Done"
         } catch (e: Exception) {
             e.message ?: "Unknown error"

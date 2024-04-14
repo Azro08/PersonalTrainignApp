@@ -31,8 +31,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private val binding by viewBinding(FragmentProfileBinding::bind)
     private val viewModel: ProfileViewModel by viewModels()
     private var userId = ""
-    @Inject lateinit var authManager: AuthManager
-    @Inject lateinit var firebaseAuth: FirebaseAuth
+    @Inject
+    lateinit var authManager: AuthManager
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     private var imageUri = Uri.parse("")
     private var imageUrl = ""
@@ -51,6 +53,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             editProfile()
         }
         binding.textViewProfileEmail.text = authManager.getUser()
+        binding.imageButtonLogout.setOnClickListener {
+            logout()
+        }
         viewModelOutputs()
     }
 
@@ -83,7 +88,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     is ScreenState.Loading -> {}
                     is ScreenState.Success -> {
                         if (state.data != null) displayProfileDetails(state.data)
-                        else Toast.makeText(requireContext(), getString(R.string.user_not_found), Toast.LENGTH_SHORT)
+                        else Toast.makeText(
+                            requireContext(),
+                            getString(R.string.user_not_found),
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
 
@@ -96,7 +105,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun displayProfileDetails(user: User) {
-        binding.editTextAddress.setText(user.address)
         binding.editTextPhoneNum.setText(user.phoneNumber)
         Glide.with(binding.root).load(user.imageUrl)
             .error(R.drawable.profile_icon)
@@ -104,10 +112,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun areAllFieldsFilled(): Boolean {
-        val address = binding.editTextAddress.text.toString()
         val phoneNumber = binding.editTextPhoneNum.text.toString()
 
-        return !(address.isEmpty() || phoneNumber.isEmpty())
+        return phoneNumber.isNotEmpty()
 
     }
 
@@ -115,7 +122,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.buttonEditProfile.visibility = View.GONE
         binding.buttonSaveProfile.visibility = View.VISIBLE
         binding.buttonSaveProfile.visibility = View.VISIBLE
-        binding.editTextAddress.visibility = View.VISIBLE
         binding.editTextPhoneNum.visibility = View.VISIBLE
         binding.editTextPassword.visibility = View.VISIBLE
         binding.editTextOldPassword.visibility = View.VISIBLE
@@ -125,7 +131,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             if (areAllFieldsFilled()) {
                 if (imageUri != Uri.parse("")) uploadImage()
                 else saveUser()
-            } else Toast.makeText(requireContext(), getString(R.string.fill_upFields), Toast.LENGTH_SHORT)
+            } else Toast.makeText(
+                requireContext(),
+                getString(R.string.fill_upFields),
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
 
@@ -154,7 +164,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun saveUser() {
         binding.buttonSaveProfile.visibility = View.GONE
         binding.saveLoadingGif.visibility = View.VISIBLE
-        val address = binding.editTextAddress.text.toString()
         val phoneNumber = binding.editTextPhoneNum.text.toString()
         var password = binding.editTextPassword.text.toString()
         var oldPassword = ""
@@ -162,7 +171,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         if (password.isEmpty()) password = ""
         else {
             if (binding.editTextOldPassword.text.toString().isEmpty()) {
-                Toast.makeText(requireContext(), getString(R.string.old_password_is_required), Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.old_password_is_required),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else {
                 oldPassword = binding.editTextOldPassword.text.toString()
@@ -172,13 +185,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         val updatedFields: Map<String, Any> = if (imageUri != Uri.parse("")) {
             mapOf(
-                "address" to address,
                 "phoneNumber" to phoneNumber,
                 "imageUrl" to imageUri
             )
         } else {
             mapOf(
-                "address" to address,
                 "phoneNumber" to phoneNumber
             )
         }
@@ -195,13 +206,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 when (state) {
                     is ScreenState.Loading -> {}
                     is ScreenState.Success -> {
-                        Toast.makeText(requireContext(), getString(R.string.profile_updated), Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.profile_updated),
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                         binding.saveLoadingGif.visibility = View.GONE
                         binding.buttonSaveProfile.visibility = View.GONE
                         binding.editTextPassword.visibility = View.GONE
                         binding.editTextOldPassword.visibility = View.GONE
-                        binding.editTextAddress.visibility = View.GONE
                         binding.editTextPhoneNum.visibility = View.GONE
                         binding.buttonEditProfile.visibility = View.VISIBLE
                     }

@@ -98,15 +98,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val email = binding.editTextEmail.text.toString()
         val password = binding.editTextPassword.text.toString()
         val rePassword = binding.editTextRePassword.text.toString()
-        val address = binding.editTextAddress.text.toString()
         val phoneNumber = binding.editTextRePhoneNumber.text.toString()
         val fullName = binding.editTextFullName.text.toString()
         if (password == rePassword) {
             val newUser = User(
                 email = email,
-                address = address,
                 phoneNumber = phoneNumber,
-                role = "user",
                 fullName = fullName,
                 imageUrl = imageUrl
                 )
@@ -133,11 +130,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val email = binding.editTextEmail.text.toString()
         val password = binding.editTextPassword.text.toString()
         val rePassword = binding.editTextRePassword.text.toString()
-        val address = binding.editTextAddress.text.toString()
         val phoneNumber = binding.editTextRePhoneNumber.text.toString()
         val fullName = binding.editTextFullName.text.toString()
 
-        return !(email.isEmpty() || password.isEmpty() || rePassword.isEmpty() || address.isEmpty() || phoneNumber.isEmpty() || fullName.isEmpty())
+        return !(email.isEmpty() || password.isEmpty() || rePassword.isEmpty() || phoneNumber.isEmpty() || fullName.isEmpty())
 
     }
 

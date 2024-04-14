@@ -23,9 +23,7 @@ class UsersRepository @Inject constructor(
             val usersList = mutableListOf<User>()
             for (document in querySnapshot) {
                 val user = document.toObject(User::class.java)
-                if (user.role != "admin") {
-                    usersList.add(user)
-                }
+                usersList.add(user)
             }
             return usersList
         } catch (e: Exception) {

@@ -24,6 +24,15 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <ImageButton
+                android:id="@+id/imageButtonLogout"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/logout"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:contentDescription="@string/logout" />
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
@@ -46,21 +55,7 @@
                 android:textSize="18sp"
                 tools:text="a@a.com" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/address"
-                app:hintTextColor="@color/white">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPostalAddress"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <!-- Phone Number -->

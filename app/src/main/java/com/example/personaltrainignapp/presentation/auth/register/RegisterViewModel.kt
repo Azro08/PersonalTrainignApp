@@ -1,6 +1,7 @@
 package com.example.personaltrainignapp.presentation.auth.register
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.personaltrainignapp.data.model.User
@@ -38,6 +39,7 @@ class RegisterViewModel @Inject constructor(
     fun register(user: User, password: String) = viewModelScope.launch {
         authRepository.signup(user, password).let {
             _registerState.value = it
+            Log.d("RegVm", it)
         }
     }
 
