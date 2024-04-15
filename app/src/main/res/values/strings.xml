@@ -34,4 +34,8 @@
     <string name="user_not_found">User not found</string>
     <string name="profile_updated">Profile updated</string>
     <string name="logout">logout</string>
+    <string name="start">START</string>
+    <string name="workout_image">workout image</string>
+    <string name="weights_kg">Weights(kg)</string>
+    <string name="reps">Reps</string>
 </resources>

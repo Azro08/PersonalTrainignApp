@@ -28,6 +28,7 @@ retrofit = "2.9.0"
 swiperefreshlayout = "1.1.0"
 viewbindingpropertydelegateFull = "1.5.9"
 legacySupportV4 = "1.0.0"
+kotlin = "1.8.20"
 
 [libraries]
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawable" }
@@ -64,5 +65,6 @@ viewbindingpropertydelegate-full = { module = "com.github.kirich1409:viewbinding
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
 
 [plugins]
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 

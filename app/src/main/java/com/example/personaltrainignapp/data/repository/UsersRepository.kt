@@ -17,21 +17,6 @@ class UsersRepository @Inject constructor(
     ) {
 
     private val usersCollection = firestore.collection("users")
-    suspend fun getUsers(): List<User> {
-        try {
-            val querySnapshot = usersCollection.get().await()
-            val usersList = mutableListOf<User>()
-            for (document in querySnapshot) {
-                val user = document.toObject(User::class.java)
-                usersList.add(user)
-            }
-            return usersList
-        } catch (e: Exception) {
-            // Handle any errors or exceptions here
-            throw e
-        }
-    }
-
 
     suspend fun getUser(userId: String): User? {
         val userDocument = usersCollection.document(userId)

@@ -11,8 +11,7 @@ object Constants {
     const val SHARED_PREF_NAME = "user_pref"
     const val USER_KEY = "user_key"
     const val ROLE_KEY = "role_key"
-    const val ADMIN = "admin"
-    const val USER = "user"
+    const val DATE_KEY = "date_key"
     const val EXERCISE_KEY = "exercise_key"
     const val USER_ID = "user_id"
     const val EMAIL = "email"
@@ -32,11 +31,22 @@ object Constants {
         return randomString.toString()
     }
 
+
+    fun getFullDateString(date: Date) : String{
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.format(date)
+    }
+
+    fun getDateFromString(dateStr : String): Date? {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.parse(dateStr)
+    }
+
     fun getCurrentTimestamp(): Long {
         return System.currentTimeMillis() / 1000 // Get current timestamp in seconds
     }
 
-    fun getCurrentDate(): String {
+    fun getCurrentDateString(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
     }

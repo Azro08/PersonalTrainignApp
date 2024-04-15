@@ -3,14 +3,17 @@ package com.example.personaltrainignapp.presentation.exercise_details
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.personaltrainignapp.R
 import com.example.personaltrainignapp.data.model.Exercise
 import com.example.personaltrainignapp.databinding.FragmentExerciseDetailsBinding
+import com.example.personaltrainignapp.util.Constants
 import com.example.personaltrainignapp.util.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -52,6 +55,16 @@ class ExerciseDetailsFragment : Fragment(R.layout.fragment_exercise_details) {
         textViewSecondaryMuscle.text = exercise.secondaryMuscles.toString()
         textViewEquipment.text = exercise.equipment
         textViewInstructions.text = exercise.instructions.toString()
+
+        binding.buttonStartWorkout.setOnClickListener {
+            startExercise(exercise.id)
+        }
+
+    }
+
+    private fun startExercise(id: String) {
+        val bundle = bundleOf(Pair(Constants.EXERCISE_KEY, id))
+        findNavController().navigate(R.id.nav_exercise_details_start_exercise, bundle)
     }
 
 }

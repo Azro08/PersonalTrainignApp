@@ -23,7 +23,11 @@
         android:id="@+id/calendarFragment"
         android:name="com.example.personaltrainignapp.presentation.calendar.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/nav_history_details"
+            app:destination="@id/historyDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.personaltrainignapp.presentation.profile.ProfileFragment"
@@ -33,5 +37,19 @@
         android:id="@+id/exerciseDetailsFragment"
         android:name="com.example.personaltrainignapp.presentation.exercise_details.ExerciseDetailsFragment"
         android:label="fragment_exercise_details"
-        tools:layout="@layout/fragment_exercise_details" />
+        tools:layout="@layout/fragment_exercise_details" >
+        <action
+            android:id="@+id/nav_exercise_details_start_exercise"
+            app:destination="@id/startExerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyDetailsFragment"
+        android:name="com.example.personaltrainignapp.presentation.history_details.HistoryDetailsFragment"
+        android:label="fragment_history_details"
+        tools:layout="@layout/fragment_history_details" />
+    <fragment
+        android:id="@+id/startExerciseFragment"
+        android:name="com.example.personaltrainignapp.presentation.start_exercise.StartExerciseFragment"
+        android:label="fragment_start_exercise"
+        tools:layout="@layout/fragment_start_exercise" />
 </navigation>

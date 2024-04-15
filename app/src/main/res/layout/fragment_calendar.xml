@@ -29,7 +29,7 @@
             android:src="@drawable/left_arrow_icon" />
 
         <TextView
-            android:id="@+id/text_view_month"
+            android:id="@+id/text_view_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
