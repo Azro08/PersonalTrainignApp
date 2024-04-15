@@ -3,10 +3,12 @@ package com.example.personaltrainignapp.presentation.start_exercise
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.personaltrainignapp.data.model.Exercise
 import com.example.personaltrainignapp.data.model.Workout
 import com.example.personaltrainignapp.databinding.FragmentStartExerciseBinding
 import com.example.personaltrainignapp.util.Constants
@@ -24,28 +26,45 @@ class StartExerciseFragment : DialogFragment() {
         val builder = AlertDialog.Builder(this.activity)
         builder.run { setView(binding.root) }
         binding.buttonSaveWorkout.setOnClickListener {
-            arguments?.getString(Constants.EXERCISE_KEY)?.let { exerciseId ->
-                val weights =
-                    binding.editTextWeights.text?.split(" ")?.mapNotNull { it.toDoubleOrNull() }
-                        ?: emptyList()
-                val reps = binding.editTextReps.text?.split(" ")?.mapNotNull { it.toIntOrNull() }
-                    ?: emptyList()
-                val currentDate = Constants.getCurrentDateString()
-                val id = Constants.generateRandomId()
-                val workout = Workout(
-                    id = id,
-                    exerciseId = exerciseId,
-                    weights = weights,
-                    reps = reps,
-                    date = currentDate,
-                )
-                saveWorkout(workout)
+            Log.d("WorkoutSave", "Entered")
+            lifecycleScope.launch {
+                viewModel.exerciseDetailsState.collect {
+                    when (it) {
+                        is ScreenState.Loading -> {}
+                        is ScreenState.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error loading exercise details",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is ScreenState.Success -> {
+                            saveWorkout(it.data)
+                        }
+                    }
+                }
             }
         }
         return builder.create()
     }
 
-    private fun saveWorkout(workout: Workout) {
+    private fun saveWorkout(exercise: Exercise?) {
+        Log.d("WorkoutSave", exercise.toString())
+        val weights =
+            binding.editTextWeights.text?.split(" ")?.mapNotNull { it.toDoubleOrNull() }
+                ?: emptyList()
+        val reps = binding.editTextReps.text?.split(" ")?.mapNotNull { it.toIntOrNull() }
+            ?: emptyList()
+        val currentDate = Constants.getCurrentDateString()
+        val id = Constants.generateRandomId()
+        val workout = Workout(
+            id = id,
+            exercise = exercise!!,
+            weights = weights,
+            reps = reps,
+            date = currentDate,
+        )
         lifecycleScope.launch {
             viewModel.saveWorkout(workout)
             viewModel.workoutSavedState.collect { state ->

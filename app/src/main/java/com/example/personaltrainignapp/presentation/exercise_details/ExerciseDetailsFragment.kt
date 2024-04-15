@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.personaltrainignapp.R
 import com.example.personaltrainignapp.data.model.Exercise
 import com.example.personaltrainignapp.databinding.FragmentExerciseDetailsBinding
+import com.example.personaltrainignapp.presentation.start_exercise.StartExerciseFragment
 import com.example.personaltrainignapp.util.Constants
 import com.example.personaltrainignapp.util.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,8 +64,11 @@ class ExerciseDetailsFragment : Fragment(R.layout.fragment_exercise_details) {
     }
 
     private fun startExercise(id: String) {
-        val bundle = bundleOf(Pair(Constants.EXERCISE_KEY, id))
-        findNavController().navigate(R.id.nav_exercise_details_start_exercise, bundle)
+//        val bundle = bundleOf(Pair(Constants.EXERCISE_KEY, id))
+//        findNavController().navigate(R.id.nav_exercise_details_start_exercise, bundle)
+        val startExerciseFragment = StartExerciseFragment()
+        startExerciseFragment.arguments = bundleOf(Pair(Constants.EXERCISE_KEY, id))
+        startExerciseFragment.show(requireActivity().supportFragmentManager, "startExerciseFragment")
     }
 
 }

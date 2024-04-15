@@ -46,7 +46,11 @@
         android:id="@+id/historyDetailsFragment"
         android:name="com.example.personaltrainignapp.presentation.history_details.HistoryDetailsFragment"
         android:label="fragment_history_details"
-        tools:layout="@layout/fragment_history_details" />
+        tools:layout="@layout/fragment_history_details" >
+        <action
+            android:id="@+id/nav_history_to_exercise_details"
+            app:destination="@id/exerciseDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/startExerciseFragment"
         android:name="com.example.personaltrainignapp.presentation.start_exercise.StartExerciseFragment"

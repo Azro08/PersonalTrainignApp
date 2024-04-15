@@ -1,5 +1,6 @@
 package com.example.personaltrainignapp.data.repository
 
+import android.util.Log
 import com.example.personaltrainignapp.data.model.Workout
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -13,7 +14,6 @@ class WorkoutRepository @Inject constructor(
 ) {
 
     private val COLLECTION_WORKOUTS = "workouts"
-    private val FIELD_DATE = "date"
     private val FIELD_USER_ID = "userId"
 
     private val workoutCollection = firebaseFirestore.collection(COLLECTION_WORKOUTS)
@@ -32,28 +32,25 @@ class WorkoutRepository @Inject constructor(
 
     suspend fun getWorkoutHistoryByDate(date: String): List<Workout> {
         val userId = firebaseAuth.currentUser?.uid ?: ""
-        return try {
-            val querySnapshot = workoutCollection
-                .whereEqualTo(FIELD_USER_ID, userId)
-                .whereEqualTo(FIELD_DATE, date)
-                .get()
-                .await()
+        val workouts = getAllWorkoutHistory()
+        Log.d("Workout", workouts.toString())
 
-            val workouts = mutableListOf<Workout>()
-            for (document in querySnapshot.documents) {
-                val workout = document.toObject(Workout::class.java)
-                workout?.let {
-                    workouts.add(it)
-                }
+        val filteredWorkouts = mutableListOf<Workout>()
+        return try {
+            for (workout in workouts) {
+                Log.d("Workout", workout.toString())
+                if (workout.date == date && workout.userId == userId) filteredWorkouts.add(workout)
             }
-            workouts
+            filteredWorkouts
         } catch (e: Exception) {
             emptyList() // Return an empty list in case of failure
         }
     }
 
-    suspend fun getAllWorkoutHistory(): List<Workout> {
+    private suspend fun getAllWorkoutHistory(): List<Workout> {
         val userId = firebaseAuth.currentUser?.uid ?: ""
+        Log.d("WorkoutHistory", "Current User ID: $userId")
+
         return try {
             val querySnapshot = workoutCollection
                 .whereEqualTo(FIELD_USER_ID, userId)
@@ -67,10 +64,13 @@ class WorkoutRepository @Inject constructor(
                     workouts.add(it)
                 }
             }
+            Log.d("WorkoutHistory", "Retrieved ${workouts.size} workouts")
             workouts
         } catch (e: Exception) {
+            Log.e("WorkoutHistory", "Error retrieving workout history: ${e.message}", e)
             emptyList() // Return an empty list in case of failure
         }
     }
+
 
 }
