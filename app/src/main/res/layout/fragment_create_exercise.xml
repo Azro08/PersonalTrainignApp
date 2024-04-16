@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue"
+    android:padding="10dp"
+    tools:context=".presentation.create_exercise.CreateExerciseFragment">
+
+    <ImageView
+        android:id="@+id/imageViewNewExerciseImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="@drawable/fitness"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/exercise" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextImageUrl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="@string/image_url"
+            android:layout_marginEnd="6dp"/>
+
+        <Button
+            android:id="@+id/buttonUploadImage"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/upload"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextExerciseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextExerciseEquipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/equipment"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextExerciseTargetMuscle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/target_muscle"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextExerciseSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/secondary_muscle"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextExerciseInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/instructions"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/buttonSaveExercise"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/save"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/imageViewLoadingGif"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/loading_gif"
+        android:visibility="gone"
+        android:importantForAccessibility="no" />
+
+</LinearLayout>

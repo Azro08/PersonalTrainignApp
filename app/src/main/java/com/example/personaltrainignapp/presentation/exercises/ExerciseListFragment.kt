@@ -39,6 +39,10 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
             binding.swipeRefreshLayout.isRefreshing = false
         }
         search()
+
+        binding.imageButtonAddExercise.setOnClickListener {
+            findNavController().navigate(R.id.nav_exercises_create)
+        }
     }
 
     private fun search() {

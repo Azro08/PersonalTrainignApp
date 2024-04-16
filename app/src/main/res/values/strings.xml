@@ -38,4 +38,7 @@
     <string name="workout_image">workout image</string>
     <string name="weights_kg">Weights(kg)</string>
     <string name="reps">Reps</string>
+    <string name="image_url">image url</string>
+    <string name="upload">Upload</string>
+    <string name="add_exercise">Add exercise</string>
 </resources>

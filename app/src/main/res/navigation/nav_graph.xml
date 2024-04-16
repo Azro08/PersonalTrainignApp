@@ -18,6 +18,9 @@
         <action
             android:id="@+id/nav_exercise_to_details"
             app:destination="@id/exerciseDetailsFragment" />
+        <action
+            android:id="@+id/nav_exercises_create"
+            app:destination="@id/createExerciseFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -56,4 +59,9 @@
         android:name="com.example.personaltrainignapp.presentation.start_exercise.StartExerciseFragment"
         android:label="fragment_start_exercise"
         tools:layout="@layout/fragment_start_exercise" />
+    <fragment
+        android:id="@+id/createExerciseFragment"
+        android:name="com.example.personaltrainignapp.presentation.create_exercise.CreateExerciseFragment"
+        android:label="fragment_create_exercise"
+        tools:layout="@layout/fragment_create_exercise" />
 </navigation>
