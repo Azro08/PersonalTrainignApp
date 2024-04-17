@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.personaltrainignapp.presentation.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/nav_home_edit_plan"
+            app:destination="@id/createWorkoutProgramFragment" />
+    </fragment>
     <fragment
         android:id="@+id/exercisesFragment"
         android:name="com.example.personaltrainignapp.presentation.exercises.ExerciseListFragment"
@@ -64,4 +68,9 @@
         android:name="com.example.personaltrainignapp.presentation.create_exercise.CreateExerciseFragment"
         android:label="fragment_create_exercise"
         tools:layout="@layout/fragment_create_exercise" />
+    <fragment
+        android:id="@+id/createWorkoutProgramFragment"
+        android:name="com.example.personaltrainignapp.presentation.create_workout_programm.CreateWorkoutProgramFragment"
+        android:label="fragment_create_workout_program"
+        tools:layout="@layout/fragment_create_workout_program" />
 </navigation>

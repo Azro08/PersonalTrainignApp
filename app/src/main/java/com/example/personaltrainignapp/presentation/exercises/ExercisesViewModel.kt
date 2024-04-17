@@ -1,5 +1,6 @@
 package com.example.personaltrainignapp.presentation.exercises
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.personaltrainignapp.data.model.Exercise
@@ -22,8 +23,13 @@ class ExercisesViewModel @Inject constructor(
 
     fun getExercisesListByMuscle(bodyPart: String) = viewModelScope.launch {
         try {
-            val exercises = exercisesRepository.getExercises(bodyPart)
-            _exercisesState.value = ScreenState.Success(exercises.map { it.toExercise() })
+            Log.d("BodyPart Vm", bodyPart)
+            exercisesRepository.getExercises(bodyPart).let {exercises ->
+                Log.d("ExerciseListVm BP", bodyPart)
+                Log.d("ExercisesListVm", exercises.size.toString())
+                if (exercises.isNotEmpty()) _exercisesState.value = ScreenState.Success(exercises.map { it.toExercise() })
+                else _exercisesState.value = ScreenState.Error("No exercises found!")
+            }
         } catch (e: Exception) {
             _exercisesState.value = ScreenState.Error(e.message ?: "No exercises found!")
         }

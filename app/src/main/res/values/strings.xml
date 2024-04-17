@@ -41,4 +41,14 @@
     <string name="image_url">image url</string>
     <string name="upload">Upload</string>
     <string name="add_exercise">Add exercise</string>
+    <string name="day1">Day1</string>
+    <string name="day2">Day2</string>
+    <string name="day3">Day3</string>
+    <string name="day4">Day4</string>
+    <string name="day5">Day5</string>
+    <string name="day6">Day6</string>
+    <string name="day7">Day7</string>
+    <string name="edit_workout_plan"><u>Edit Workout Plan</u></string>
+    <string name="completed">Completed</string>
+    <string name="no_plan_is_set_yet">No plan is set yet!</string>
 </resources>

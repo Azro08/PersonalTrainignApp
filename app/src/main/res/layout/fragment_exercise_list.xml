@@ -27,6 +27,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/add_icon"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.894"
         app:layout_constraintStart_toEndOf="@id/textView"
@@ -43,8 +44,7 @@
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:visibility="gone">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -83,8 +83,7 @@
         android:id="@+id/rvBodyParts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/searchLayout"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/searchLayout" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"

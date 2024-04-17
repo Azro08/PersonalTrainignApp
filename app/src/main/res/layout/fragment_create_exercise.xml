@@ -17,31 +17,6 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/exercise" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/editTextImageUrl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:hint="@string/image_url"
-            android:layout_marginEnd="6dp"/>
-
-        <Button
-            android:id="@+id/buttonUploadImage"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:text="@string/upload"/>
-
-    </LinearLayout>
-
     <EditText
         android:id="@+id/editTextExerciseName"
         android:layout_width="match_parent"
@@ -58,6 +33,15 @@
         android:layout_height="wrap_content"
         android:hint="@string/equipment"
         android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:inputType="text" />
+
+    <Spinner
+        android:id="@+id/spinnerBodyPart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/target_muscle"
         android:textColor="@color/white"
         android:layout_marginTop="10dp"
         android:inputType="text" />

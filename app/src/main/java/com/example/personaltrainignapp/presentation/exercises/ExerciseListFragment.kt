@@ -67,6 +67,7 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
         val bodyParts = Constants.getBodyPartsList()
         bodyPartRvAdapter = BodyPartRvAdapter(bodyParts) {
             currentBodyPart = it
+            Log.d("BodyPart", it)
             getExercises()
         }
         binding.rvBodyParts.layoutManager =
@@ -87,8 +88,15 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
                     }
 
                     is ScreenState.Success -> {
-                        if (!state.data.isNullOrEmpty()) showExercises(state.data)
-                        else handleError(state.message)
+                        Log.d("ExercisesList", state.data?.size.toString())
+                        if (!state.data.isNullOrEmpty()) {
+                            Log.d("ExercisesList", " not empty")
+                            showExercises(state.data)
+                        }
+                        else {
+                            Log.d("ExercisesList", "  empty")
+                            handleError(state.message)
+                        }
                     }
                 }
             }
@@ -97,9 +105,8 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
 
     private fun showExercises(exercises: List<Exercise>) {
         Log.d("Exercises list", exercises.toString())
-        binding.searchLayout.visibility = View.VISIBLE
-        binding.rvBodyParts.visibility = View.VISIBLE
         binding.swipeRefreshLayout.visibility = View.VISIBLE
+        binding.imageButtonAddExercise.visibility = View.VISIBLE
         binding.textViewError.visibility = View.GONE
         binding.loadingGif.visibility = View.GONE
         exercisesRvAdapter = ExercisesRvAdapter(exercises) {
@@ -116,8 +123,7 @@ class ExerciseListFragment : Fragment(R.layout.fragment_exercise_list) {
     }
 
     private fun handleError(message: String?) {
-        binding.searchLayout.visibility = View.GONE
-        binding.rvBodyParts.visibility = View.GONE
+        binding.imageButtonAddExercise.visibility = View.VISIBLE
         binding.swipeRefreshLayout.visibility = View.VISIBLE
         binding.loadingGif.visibility = View.GONE
         binding.textViewError.visibility = View.VISIBLE
