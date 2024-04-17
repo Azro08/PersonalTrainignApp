@@ -11,3 +11,7 @@ data class Exercise(
     val secondaryMuscles: List<String> = emptyList(),
     val target: String = ""
 )
+
+fun Exercise.toExerciseDto() = ExerciseDto(
+    bodyPart, equipment, gifUrl, id, instructions, name, secondaryMuscles, target
+)

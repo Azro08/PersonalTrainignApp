@@ -5,10 +5,13 @@ import android.util.Log
 import com.example.personaltrainignapp.data.api.ExerciseApi
 import com.example.personaltrainignapp.data.model.Exercise
 import com.example.personaltrainignapp.data.model.ExerciseDto
+import com.example.personaltrainignapp.data.model.toExerciseDto
 import com.google.firebase.FirebaseException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 
@@ -22,11 +25,11 @@ class ExercisesRepository @Inject constructor(
 
     suspend fun getExercises(bodyPart: String): List<ExerciseDto> {
         Log.d("BodyPart Rep", bodyPart)
-        val apiExercisesList = apiService.getExercisesByBodyPart(bodyPart)
         val firestoreExercises = getFirestoreExercises(bodyPart)
+        val apiExercisesList = apiService.getExercisesByBodyPart(bodyPart)
         Log.d("ExercisesList rep", firestoreExercises.toString())
         Log.d("ExercisesList rep", firestoreExercises.toString() + apiExercisesList.toString())
-        return apiExercisesList + firestoreExercises
+        return apiExercisesList + firestoreExercises.map { it.toExerciseDto() }
     }
 
     suspend fun saveExercise(exercise: Exercise): String {
@@ -39,28 +42,14 @@ class ExercisesRepository @Inject constructor(
         }
     }
 
-    private suspend fun getFirestoreExercises(bodyPart: String): List<ExerciseDto> {
+    private suspend fun getFirestoreExercises(bodyPart: String): List<Exercise> {
         return try {
-            val querySnapshot = exercisesCollection
-                .whereEqualTo(
-                    "bodyPart",
-                    bodyPart
-                )
-                .get()
-                .await()
-
-            val exercisesList = mutableListOf<ExerciseDto>()
-            for (document in querySnapshot.documents) {
-                val exercise = document.toObject(ExerciseDto::class.java)
-                exercise?.let {
-                    exercisesList.add(it)
-                }
-            }
-
-            exercisesList
+            val querySnapshot = exercisesCollection.whereEqualTo("bodyPart", bodyPart).get().await()
+            querySnapshot.toObjects(Exercise::class.java)
         } catch (e: Exception) {
-            // Handle exceptions (e.g., FirestoreException)
-            emptyList() // Return empty list or handle error as needed
+            // Handle exceptions
+            Log.d("ExeceptioFirebase", e.message.toString())
+            emptyList()
         }
     }
 
@@ -77,6 +66,32 @@ class ExercisesRepository @Inject constructor(
 
     }
 
-    suspend fun getExerciseById(id: String) = apiService.getExerciseById(id)
+    suspend fun getExerciseById(id: String): ExerciseDto {
+        return try {
+            apiService.getExerciseById(id)
+        } catch (apiException: Exception) {
+            fetchExerciseFromFirestore(id).toExerciseDto()
+        }
+    }
+
+    private suspend fun fetchExerciseFromFirestore(id: String): Exercise {
+        Log.d("ExerciseId", id)
+        return withContext(Dispatchers.IO) {
+            try {
+                // Implement fetching from Firestore
+                val db = FirebaseFirestore.getInstance()
+                val exerciseDoc = db.collection("exercises").document(id).get().await()
+                if (exerciseDoc.exists()) {
+                    exerciseDoc.toObject(Exercise::class.java)
+                } else {
+                    null
+                }
+            } catch (firestoreException: Exception) {
+                // Handle Firestore fetch failure
+                // Log the error or handle it appropriately
+                null
+            }
+        } ?: Exercise()
+    }
 
 }
