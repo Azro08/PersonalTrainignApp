@@ -12,7 +12,7 @@ import com.example.personaltrainignapp.MainActivity
 import com.example.personaltrainignapp.R
 import com.example.personaltrainignapp.databinding.FragmentLoginBinding
 import com.example.personaltrainignapp.util.AuthManager
-import com.example.personaltrainignapp.util.Constants
+import com.example.personaltrainignapp.util.ScreenState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,6 +21,7 @@ import javax.inject.Inject
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel: LoginViewModel by viewModels()
+
     @Inject
     lateinit var authManager: AuthManager
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,14 +44,26 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val email = binding.editTextEmail.text.toString()
             val password = binding.editTextPassword.text.toString()
             viewModel.login(email, password)
-            viewModel.loggedIn.collect { result ->
-                if (result == "Done"){
-                    authManager.saveUer(email)
-                    startActivity(Intent(requireActivity(), MainActivity::class.java))
-                    requireActivity().finish()
-                } else {
-                    Toast.makeText(requireContext(), result ?: "Failed", Toast.LENGTH_SHORT).show()
+            viewModel.loggedIn.collect { state ->
+
+                when (state) {
+
+                    is ScreenState.Loading -> {}
+                    is ScreenState.Error -> {
+                        Toast.makeText(
+                            requireContext(),
+                            state.message ?: getString(R.string.failed),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    is ScreenState.Success -> {
+                        authManager.saveUer(email)
+                        startActivity(Intent(requireActivity(), MainActivity::class.java))
+                        requireActivity().finish()
+                    }
                 }
+
             }
         }
     }

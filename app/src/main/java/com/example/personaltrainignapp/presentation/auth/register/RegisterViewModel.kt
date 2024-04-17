@@ -22,7 +22,7 @@ class RegisterViewModel @Inject constructor(
     private val _imageUploaded = MutableStateFlow<ScreenState<Uri?>>(ScreenState.Loading())
     val imageUploaded: MutableStateFlow<ScreenState<Uri?>> = _imageUploaded
 
-    private val _registerState = MutableStateFlow("")
+    private val _registerState = MutableStateFlow<ScreenState<String>>(ScreenState.Loading())
     val registerState = _registerState
 
     fun uploadImageAndGetUri(userId: String, imageUri: Uri) = viewModelScope.launch {
@@ -38,8 +38,8 @@ class RegisterViewModel @Inject constructor(
 
     fun register(user: User, password: String) = viewModelScope.launch {
         authRepository.signup(user, password).let {
-            _registerState.value = it
-            Log.d("RegVm", it)
+            if (it == "Done") _registerState.value = ScreenState.Success(it)
+            else _registerState.value = ScreenState.Error(it)
         }
     }
 

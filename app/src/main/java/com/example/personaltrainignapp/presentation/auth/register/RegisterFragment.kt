@@ -14,12 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.personaltrainignapp.util.ScreenState
-import com.example.personaltrainignapp.presentation.auth.AuthActivity
 import com.bumptech.glide.Glide
 import com.example.personaltrainignapp.R
 import com.example.personaltrainignapp.data.model.User
 import com.example.personaltrainignapp.databinding.FragmentRegisterBinding
+import com.example.personaltrainignapp.presentation.auth.AuthActivity
+import com.example.personaltrainignapp.util.ScreenState
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,7 +32,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     private var imageUri = Uri.parse("")
     private var imageUrl = ""
-    @Inject lateinit var firebaseAuth : FirebaseAuth
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,11 +61,14 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             if (allFieldsAreFilled()) {
                 if (imageUri != Uri.parse("")) uploadImage()
                 else register()
-            }
-            else Toast.makeText(requireContext(), getString(R.string.fill_upFields), Toast.LENGTH_SHORT)
+            } else Toast.makeText(
+                requireContext(),
+                getString(R.string.fill_upFields),
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
-        binding.imageViewProfileIcon.setOnClickListener{
+        binding.imageViewProfileIcon.setOnClickListener {
             setProfileImage()
         }
     }
@@ -106,19 +110,32 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 phoneNumber = phoneNumber,
                 fullName = fullName,
                 imageUrl = imageUrl
-                )
+            )
             lifecycleScope.launch {
                 binding.buttonSignup.visibility = View.GONE
                 viewModel.register(newUser, password)
-                viewModel.registerState.collect{
-                    if (it == "Done") {
-                        Toast.makeText(requireContext(), getString(R.string.registration_is_done), Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(requireActivity(), AuthActivity::class.java))
-                        requireActivity().finish()
-                    } else {
-                        binding.buttonSignup.visibility = View.VISIBLE
-                        if (it != "") Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                        Log.d("Register", it)
+                viewModel.registerState.collect { state ->
+                    when (state) {
+
+                        is ScreenState.Loading -> {}
+                        is ScreenState.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                state.message ?: getString(R.string.failed),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is ScreenState.Success -> {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.registration_is_done),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            startActivity(Intent(requireActivity(), AuthActivity::class.java))
+                            requireActivity().finish()
+                        }
+
                     }
                 }
             }
